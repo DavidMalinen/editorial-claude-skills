@@ -1,6 +1,6 @@
 # Editorial Skills for Claude Code
 
-A composable set of [Claude Code skills](https://docs.anthropic.com/en/docs/claude-code/skills) for editorial design — grids, typography, layout archetypes, and data visualization. Rooted in the traditions of Tschichold, Muller-Brockmann, Bringhurst, and Tufte.
+A composable set of [Claude Code skills](https://docs.anthropic.com/en/docs/claude-code/skills) for editorial design — argument-driven layout, grids, typography, layout archetypes, and data visualization. Rooted in elenchus (the Socratic method as pre-design procedure) and the traditions of Tschichold, Müller-Brockmann, Bringhurst, and Tufte.
 
 ## What These Skills Do
 
@@ -10,19 +10,28 @@ When you invoke a skill, Claude loads the relevant reference material and follow
 
 ## Skills Included
 
+### `elenchus` (foundation)
+
+The pre-design method. Before any grid is drawn or type is set, the argument underneath the design must be named. Elenchus translates philosophical argument into editorial layout through five moves: find the question, find the antinomy, find the answer, assign form, refuse to design until the first four are done.
+
+Produces three sentences (question, antinomy, answer) and four form-assignments (architecture, tension, prose, construction) that bind argument-parts to visual forms. These hand off to `spread-archetypes` and `editorial-grid` for structural execution.
+
+Use for content that *argues* — essays, investigations, manifestos, philosophical writing. Skip for content that *displays* — documentation, indexes, dashboards, utility surfaces.
+
 ### `editorial` (orchestrator)
 
-The main entry point. Composes the three specialist skills below into action-oriented commands:
+The main entry point. Composes `elenchus`, `editorial-grid`, `spread-archetypes`, and `tufte-viz` into action-oriented commands:
 
 | Command | What it does |
 |---|---|
-| `validate [target]` | Post-change pass/fail against grid + archetype checklists |
-| `critique [target]` | Design review with named violations, severity scores, and fixes |
+| `elenchus [target]` | Name the argument before designing: question, antinomy, answer, form |
+| `construct [target]` | Guided new layout — routes through elenchus for argumentative content |
+| `validate [target]` | Post-change pass/fail against grid + archetype + argument checklists |
+| `critique [target]` | Design review: structural violations, argument coherence |
 | `audit` | Site-wide sweep across all layout and page files |
 | `typography [target]` | Focused type check: scale coherence, line metrics, baseline grid |
 | `dataviz [target]` | Data visualization critique using Tufte principles |
-| `polish [target]` | Run critique, then apply fixes automatically |
-| `construct [target]` | Guided new layout: proportion, margins, grid, scale, archetype |
+| `polish [target]` | Run critique, then apply fixes (preserves argument-form binding) |
 
 ### `editorial-grid` (structural infrastructure)
 
@@ -73,9 +82,15 @@ Your project should end up with:
 ```
 .claude/
   skills/
+    elenchus/
+      SKILL.md
+      references/
+        hofmann-construction-grid.png
+        hofmann-exposition-poster.png
     editorial/
       SKILL.md
       references/
+        elenchus.md
         validate.md
         critique.md
         audit.md
@@ -105,16 +120,18 @@ Your project should end up with:
 In Claude Code, invoke the editorial skill with a command:
 
 ```
+/editorial elenchus new-essay          # Name the argument before designing
+/editorial construct new-landing-page  # Guided new layout (routes through elenchus for arguments)
 /editorial critique src/layouts/BlogPost.astro
 /editorial typography src/pages/index.astro
 /editorial dataviz src/components/Chart.astro
 /editorial audit
-/editorial construct new-landing-page
 ```
 
 Or invoke the specialist skills directly:
 
 ```
+/elenchus                 # Full pre-design method (standalone)
 /editorial-grid           # Grid construction and critique
 /spread-archetypes        # Archetype selection and critique
 /tufte-viz                # Data visualization design and critique
@@ -124,7 +141,7 @@ Or invoke the specialist skills directly:
 
 The skills reference project-specific paths and layout systems in `editorial/SKILL.md` (the "Design Token Awareness" and "Layout System Awareness" sections). Update these to match your project's token file locations, layout systems, and naming conventions.
 
-The specialist skills (`editorial-grid`, `spread-archetypes`, `tufte-viz`) are project-agnostic — they encode design principles, not file paths.
+The specialist skills (`elenchus`, `editorial-grid`, `spread-archetypes`, `tufte-viz`) are project-agnostic — they encode design principles, not file paths.
 
 ## Principles, Not Rules
 

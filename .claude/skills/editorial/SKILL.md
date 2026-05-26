@@ -4,26 +4,35 @@ description: |
   Validate, critique, audit, polish, and construct editorial layouts by composing
   rules from the editorial-grid, spread-archetypes, tufte-viz, and whitespace/axis
   systems. Use this skill when:
-  (1) Checking recent layout changes against grid + archetype rules
-  (2) Reviewing a page for structural or compositional violations
-  (3) Auditing all layouts site-wide for consistency
-  (4) Running a focused typography check (scale, line metrics, baseline)
-  (5) Fixing layout issues identified by critique
-  (6) Building a new layout from scratch with guided decisions
-  (7) Designing or critiquing data visualizations (charts, sparklines, dashboards)
+  (1) Naming the argument before designing (elenchus) — the foundation for all
+      editorial work that argues rather than displays
+  (2) Checking recent layout changes against grid + archetype rules
+  (3) Reviewing a page for structural or compositional violations
+  (4) Auditing all layouts site-wide for consistency
+  (5) Running a focused typography check (scale, line metrics, baseline)
+  (6) Fixing layout issues identified by critique
+  (7) Building a new layout from scratch with guided decisions
+  (8) Designing or critiquing data visualizations (charts, sparklines, dashboards)
   Not for backend tasks.
 user-invocable: true
-argument-hint: "[validate|critique|audit|typography|dataviz|polish|construct] [target]"
+argument-hint: "[elenchus|validate|critique|audit|typography|dataviz|polish|construct] [target]"
 ---
 
 # Editorial Toolkit
 
-Composes rules from `editorial-grid`, `spread-archetypes`, and `tufte-viz` into action-oriented commands that check, review, fix, and build editorial layouts and data visualizations.
+The grid, the archetypes, the Tufte principles — these are the grammar of editorial layout. But grammar without something to say builds correct surfaces that carry no argument. For editorial work that argues — essays, investigations, manifestos, any spread where the form encodes the structure of thought — the grammar needs a named argument underneath it. Elenchus is what names it: question, antinomy, answer, form-assignment. Everything else in this toolkit departs from there.
+
+For content that displays rather than argues (documentation, indexes, data dashboards, utility surfaces), the grammar skills operate directly. No argument needs naming because none is being made.
+
+Composes rules from `elenchus`, `editorial-grid`, `spread-archetypes`, and `tufte-viz` into action-oriented commands that check, review, fix, and build editorial layouts and data visualizations.
 
 ## Source Skills
 
 This skill does not duplicate its source material. It references:
 
+- `../elenchus/SKILL.md` — the pre-design method: question, antinomy, answer, form-assignment, refusal-to-design
+- `../elenchus/references/hofmann-construction-grid.png` — construction grid reference (the grid is the premise)
+- `../elenchus/references/hofmann-exposition-poster.png` — the figure derived from the grid (the conclusion)
 - `../editorial-grid/SKILL.md` — grid infrastructure (proportion, margins, modular grid, baseline, scale, metrics)
 - `../editorial-grid/references/grid-construction.md` — constructions, ratio tables, character-count tables, baseline math
 - `../editorial-grid/references/asymmetric-balance.md` — tension, counterweight, the grid-and-asymmetry pair
@@ -40,13 +49,14 @@ Load the relevant source references when executing each sub-command (specified p
 
 | Command | Category | Description | Reference |
 |---|---|---|---|
-| `validate [target]` | Check | Post-change pass/fail against grid + archetype checklists | [references/validate.md](references/validate.md) |
-| `critique [target]` | Evaluate | Design review with named violations and severity | [references/critique.md](references/critique.md) |
+| `elenchus [target]` | Foundation | Name the argument before designing: question, antinomy, answer, form | [references/elenchus.md](references/elenchus.md) |
+| `construct [target]` | Build | Guided new layout — routes through elenchus for argumentative content | [references/construct.md](references/construct.md) |
+| `validate [target]` | Check | Post-change pass/fail against grid + archetype + argument checklists | [references/validate.md](references/validate.md) |
+| `critique [target]` | Evaluate | Design review: structural violations, argument coherence | [references/critique.md](references/critique.md) |
 | `audit` | Evaluate | Site-wide sweep across all layouts | [references/audit.md](references/audit.md) |
 | `typography [target]` | Evaluate | Focused type check: scale, metrics, baseline, rhythm | [references/typography.md](references/typography.md) |
 | `dataviz [target]` | Evaluate | Data visualization critique using Tufte principles | [references/dataviz.md](references/dataviz.md) |
-| `polish [target]` | Fix | Run critique, then apply fixes | [references/polish.md](references/polish.md) |
-| `construct [target]` | Build | Guided new layout: proportion → margins → grid → scale → archetype | [references/construct.md](references/construct.md) |
+| `polish [target]` | Fix | Run critique, then apply fixes (preserves argument-form binding) | [references/polish.md](references/polish.md) |
 
 ## Routing Rules
 
@@ -75,6 +85,21 @@ Every command follows this sequence:
 3. **Read the target's CSS and markup** — identify the design token files, layout files, and component files involved
 4. **Execute the command protocol** (per reference file)
 5. **Report** with file:line references for every finding
+
+### Argument Awareness
+
+Before executing any command on a layout, determine whether the content *argues* or *displays*:
+
+- **Argues**: personal essays, philosophical writing, investigative articles, manifestos, any spread where the form encodes the structure of thought. These are elenchus territory.
+- **Displays**: documentation, indexes, data dashboards, navigation, utility surfaces, transactional flows. These go straight to the grammar skills.
+
+For content that argues:
+
+1. Check whether the elenchus has been done — are the three sentences (question, antinomy, answer) stated? Are the four form-assignments (architecture, tension, prose, construction) present?
+2. If elenchus has not been done, recommend running `elenchus` before proceeding. For `construct`, this is mandatory — the protocol departs from elenchus when the content argues. For `critique`, `validate`, and `polish`, note the absence as a structural finding but proceed with the grammar-level review.
+3. When the elenchus exists, check argument-form coherence: does the layout's structure still honor the binding between argument parts and their assigned forms? A `polish` that fixes line metrics must not break the tension form's refusal to resolve. A `critique` that names a grid violation must note whether the violation is serving the argument.
+
+For content that displays, skip this section entirely. No argument needs naming because none is being made.
 
 ### Design Token Awareness
 
